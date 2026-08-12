@@ -1,5 +1,5 @@
 package com.example.imagemPecas.domain.entity;
-import com.example.imagemPecas.domains.enums.ImageExtension;
+import com.example.imagemPecas.domain.enums.ImageExtension;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
