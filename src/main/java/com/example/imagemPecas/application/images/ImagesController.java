@@ -1,8 +1,8 @@
 package com.example.imagemPecas.application.images;
 
+import com.example.imagemPecas.domain.service.ImageService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +15,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/images")
 @Slf4j
-
+@RequiredArgsConstructor
 public class ImagesController {
 
-    private static final Logger log = LoggerFactory.getLogger(ImagesController.class);
+    private final ImageService service;
 
     @PostMapping
     public ResponseEntity save(
@@ -27,8 +27,6 @@ public class ImagesController {
             @RequestParam("tags") List<String> tags
     ){
         log.info("Imagem recebida: name: {}, size: {}",file.getOriginalFilename(), file.getSize());
-        log.info("Nome definido para a imagem: {}", name);
-        log.info("Tags: {}", tags);
         return ResponseEntity.ok().build();
     }
 }
