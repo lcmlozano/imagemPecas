@@ -5,12 +5,11 @@ import com.example.imagemPecas.domain.enums.ImageExtension;
 import com.example.imagemPecas.domain.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -40,6 +39,24 @@ public class ImagesController {
 
         URI imageUri = buildImageURL(savedImage);
         return ResponseEntity.created(imageUri).build();
+    }
+
+    // /v1/images/{id}
+    @GetMapping("{id}")
+    public ResponseEntity<byte[]> getImage(@PathVariable("id") String id) {
+        var possibleImage = service.getById(id);
+        if (possibleImage.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        var image = possibleImage.get();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(image.getExtension().getMediaType());
+        headers.setContentLength(image.getSize());
+        // inline; filename="image.PNG"
+        headers.setContentDispositionFormData("inline; filename= \"" + image.getName() + "\"",image.getFileName());
+
+        return new ResponseEntity<>(image.getFile(), headers, HttpStatus.OK);
     }
 
     //localhost:8080/v1/images/xyxyxyxyxyxyxyx
