@@ -33,6 +33,7 @@ public class ImagesController {
             @RequestParam("tags") List<String> tags
     ) throws IOException {
         log.info("Imagem recebida: name: {}, size: {}",file.getOriginalFilename(), file.getSize());
+        log.info("Content type: {}", file.getContentType());
 
         Image image = mapper.mapToImage(file, name, tags);
         Image savedImage = service.save(image);
