@@ -76,6 +76,20 @@ public class ImagesController {
         return ResponseEntity.ok(images);
     }
 
+
+
+    /* //teste sem passar pelo IMAGEDTO
+    // localhost:8080/v1/images?extension=PNG&query=Nature
+    @GetMapping
+    public ResponseEntity<List<Image>> search(
+            @RequestParam(value = "extension", required = false, defaultValue = "") String extension,
+            @RequestParam(value = "query", required = false) String query){
+
+        var result = service.search(ImageExtension.ofName(extension), query);
+
+        return ResponseEntity.ok(result);
+    }
+    */
     //localhost:8080/v1/images/xyxyxyxyxyxyxyx
     private URI buildImageURL(Image image){
         String imagePath = "/" + image.getId();
