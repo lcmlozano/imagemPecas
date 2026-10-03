@@ -1,9 +1,10 @@
-import Image from "next/image";
+import { PrimeiroComponente, ArrowFunction } from '../components/PrimeiroComponente'
 
 export default function Home() {
   return (
-    <main>
-      Minha primeira página Next.js
-    </main>
+    <>
+      <PrimeiroComponente />
+      <ArrowFunction />
+    </>
   );
 }
