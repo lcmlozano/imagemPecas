@@ -4,6 +4,7 @@ import { Template, ImageCard } from '@/components'
 import { Image } from '@/resources/image/image.resource'
 import { useImageService } from '@/resources/image/image.service'
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function GaleriaPage() {
   const useService = useImageService();
@@ -53,7 +54,9 @@ export default function GaleriaPage() {
                 <option value="GIF">GIF</option>
               </select>
               <button className="bg-red-500 hover:bg-red-300 text-white px-4 py-2 rounded-lg" onClick={searchImages}>Search</button>
-              <button className="bg-yellow-500 hover:bg-yellow-300 text-white px-4 py-2 rounded-lg">Add New</button>
+              <Link href="/formulario">
+                  <button className="bg-yellow-500 hover:bg-yellow-300 text-white px-4 py-2 rounded-lg">Add New</button>
+              </Link>
             </div>
           </section>
 
